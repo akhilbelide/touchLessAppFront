@@ -1,0 +1,104 @@
+.Parent{
+    width:95%;
+    margin-left: 5px;
+    margin-right: 5px;
+    display:flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    background-color:white;
+    scroll-behavior: smooth;
+    margin-bottom: 15%;
+}
+
+.Child{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display:flex;
+    flex: 1;
+    flex-wrap: wrap;
+    align-items: center;
+    /* align-items: center;
+    justify-content: space-evenly; */
+    background-color: #d21502;
+    border-bottom: 4px solid transparent;
+    box-sizing: border-box;
+    border-radius: 5%;
+    color:white
+
+}
+
+.Subchild{
+    margin-left: 5%;    
+}
+
+.AddtoCart{
+    background-color: white;
+    color:#d21502;
+    position: absolute;
+    right: 20px;
+    border-color: sandybrown;
+    width: 25%;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font: inherit;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.Box{
+        background-color: white;
+        color:#d21502;
+        position: absolute;
+        right: 20px;
+        border-color: sandybrown;
+        width: 25%;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        font: inherit;
+        padding: 10px;
+        font-weight: bold;
+        display: flex;
+        flex-direction: row;  
+        justify-content: space-evenly;
+
+}
+
+
+.Boxchild{
+    flex-wrap: wrap; 
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    flex:1;
+}
+
+.FParent{
+    width:100%;
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;  
+    justify-content: space-evenly;
+
+}
+
+.GotoCart{
+    background-color: #990f02;
+    color:white;
+    border-color: sandybrown;
+    width: 50%;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font: inherit;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+}
