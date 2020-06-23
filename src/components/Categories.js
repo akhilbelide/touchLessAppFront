@@ -4,6 +4,7 @@ import classes from './Categories.css'
 
 import Lottie from 'react-lottie';
 import * as animationData from '../animations/loadingburger.json'
+import {hosturl} from '../config.js'
 
 class Categories extends Component{
     state={
@@ -12,7 +13,7 @@ class Categories extends Component{
         data:[]
     }
     componentDidMount(){
-        fetch('https://touch-less-order.herokuapp.com/categories/all')
+        fetch(hosturl+'/categories/all/')
         .then(response=>{
           return response.json()
         })
@@ -26,7 +27,12 @@ class Categories extends Component{
     }
 
     callHandler=(index)=>{
+        if(window.location.pathname==='/admin'){
+            this.props.history.push('/admin/'+(index+1))
+        }
+        else{
         this.props.history.push('/'+(index+1))
+        }
     }
 
     cartCaller=()=>{
@@ -44,7 +50,7 @@ class Categories extends Component{
           };
         if(this.state.categories.length===0){
             return(
-                <div style={{flex:1,justifyContent:"center",alignItems:"center"}}>
+                <div style={{display:"flex",flex:1,justifyContent:"center",alignItems:"center"}}>
                 <Lottie options={defaultOptions}
                 height={200}
                 width={200}/>

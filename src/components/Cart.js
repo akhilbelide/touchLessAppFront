@@ -1,10 +1,20 @@
 import React,{Component} from 'react'
 import { connect } from 'react-redux';
-import { cart } from '../redux/actions';
+import { cart,setorderid } from '../redux/actions';
 
 import classes from './Cart.css'
 import {withRouter} from 'react-router-dom'
-
+import {hosturl} from '../config'
+import Lottie from 'react-lottie';
+import * as animationData from '../animations/loadingburger.json'
+const defaultOptions = {
+    loop: true,
+    autoplay: true, 
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice'
+    }
+  };
 
 class Cart extends Component{
     state={
@@ -14,7 +24,7 @@ class Cart extends Component{
 
     orderHandler=()=>{
         
-        fetch('https://touch-less-order.herokuapp.com/order/all',{
+        fetch(hosturl+'/order/all',{
             method:'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -26,8 +36,13 @@ class Cart extends Component{
         .then(response=>response.json())
         .then(json =>{
             console.log(json.message)
+            console.log("-------")
             console.log(json.order_id)
             console.log(json.failed)
+            this.props.set_order_id(json.order_id)
+            if(json.failed.length===0){
+                this.props.history.push('/order')
+            }
             this.setState({failed:json.failed})
         })
     }
@@ -106,12 +121,19 @@ class Cart extends Component{
 
     render(){
         const ele=this.props.cart.length
+
+
         if(ele===0){
             return(
                 <div>
                     <header className={classes.Header}>
                         <h2>CART</h2>
                     </header>
+                    <div style={{display:"flex",flex:1,justifyContent:"center",alignItems:"center"}}>
+                        <Lottie options={defaultOptions}
+                        height={200}
+                        width={200}/>
+                        </div>
                     <p className={classes.Empty}>
                         Cart is empty!
                     </p>
@@ -192,7 +214,8 @@ const mapStateToProps = state => ({
   
   
   const mapDispatchToProps = dispatch => ({
-    to_cart:(payload) => dispatch(cart(payload))
+    to_cart:(payload) => dispatch(cart(payload)),
+    set_order_id:(id) =>dispatch(setorderid(id))
   });
   
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Cart));

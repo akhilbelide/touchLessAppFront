@@ -3,3 +3,7 @@ export const cart = (payload) => ({
     payload
 });
 
+export const setorderid = (id) => ({
+    type:"ORDERID",
+    id
+})
