@@ -7,13 +7,24 @@ import Items from './components/Items';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import Cart from './components/Cart';
-
+import { messaging } from "./firebase";
 
 class App extends Component {
   state={
     categories:[],
     cart:[],
     data:[]
+  }
+  async componentDidMount() {
+    messaging.requestPermission()
+      .then(async function() {
+        const token = await messaging.getToken();
+        console.log(token)
+      })
+      .catch(function(err) {
+        console.log("Unable to get permission to notify.", err);
+      });
+    navigator.serviceWorker.addEventListener("message", (message) => console.log(message));
   }
  
   render() {
