@@ -112,8 +112,11 @@ class Items extends Component{
             <div className={classes.Parent}>
                 {
                     this.state.data.map((i,index) => {
-                        return(
+                        if(i.quantity!==0){
+                            return(
+                            
                             <div key={index} className={classes.Child}>
+                                
                                 <div className={classes.Subchild}>
                                 <p style={{'fontWeight':'bold'}}>{i.name}</p>
                                 <p>&#8377;{i.price}</p>
@@ -141,7 +144,9 @@ class Items extends Component{
                                 )}
                                 
                             </div>
+                          
                         )
+                        }
                     })
                 }
             </div>

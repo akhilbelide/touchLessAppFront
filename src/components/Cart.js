@@ -155,9 +155,7 @@ class Cart extends Component{
                                 </div>
                                 
                             </div>
-                                
-                            </div>
-                           {
+                            {
                                 (this.state.failed.length!==0 && this.state.failed[index].error===1) &&
                                 (
                                 <div className={classes.Error} style={{borderWidth:3}}>
@@ -168,6 +166,8 @@ class Cart extends Component{
                                  </div>
                                  )
                             }
+                            </div>
+
                             </div>
                         )
                     })
