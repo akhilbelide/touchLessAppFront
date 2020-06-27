@@ -18,7 +18,6 @@ const defaultOptions = {
   };
 class Items extends Component{
     state={
-        // cart:[],
         data:[],
         cat_id:-1,
         admin:0,
@@ -28,9 +27,6 @@ class Items extends Component{
 
     componentDidMount(){
         const id=this.props.match.params.id
-        // this.setState({cart:this.props.cart})
-        console.log(id)
-        console.log(window.location.pathname)
         let p = '/admin/'+id
         if(window.location.pathname===p){
             
@@ -41,13 +37,10 @@ class Items extends Component{
     }
     getItems=(index,admin)=>{
         let url
-        console.log(window.location.href)
-        console.log(admin)
         if(admin===1)
             url = hosturl + '/categories/all/admin/'+index
         else
          url = hosturl+'/categories/all/'+index
-         console.log(url)
         fetch(url)
         .then(response =>{
             return response.json()
@@ -68,7 +61,6 @@ class Items extends Component{
                     i.cart_q=0
                 }
             })
-            console.log(allItems)
             this.setState({data:allItems , cat_id:index,admin:admin})
         })
         .catch(err=>{
@@ -190,12 +182,10 @@ class Items extends Component{
         })
         .then(res=>res.json())
         .then(json=>{
-            console.log(json.message)
             this.setState({showmessage:true})
         })
     }
     render(){
-        console.log(this.state.update)
         if(this.state.data.length===0){
             return(
                 <div style={{display:"flex",flex:1,justifyContent:"center",alignItems:"center"}}>

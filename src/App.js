@@ -5,11 +5,11 @@ import Categories from './components/Categories'
 import Items from './components/Items';
 import Order from './components/Order';
 import { Provider } from 'react-redux';
-import {store} from './redux/store';
-import {persistor} from './redux/store';
+import store from './redux/store';
+
 import Cart from './components/Cart';
 // import { messaging } from "./firebase";
-import { PersistGate } from 'redux-persist/integration/react'
+
 class App extends Component {
   state={
     categories:[],
@@ -31,7 +31,7 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
+        
       <BrowserRouter>
         <div className="App">          
              {/* <Categories categories={this.state.categories}/>  */}
@@ -45,7 +45,7 @@ class App extends Component {
              </Switch>
         </div>
       </BrowserRouter>
-      </PersistGate>
+     
       </Provider>
     );
   }

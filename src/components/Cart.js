@@ -35,10 +35,6 @@ class Cart extends Component{
         })
         .then(response=>response.json())
         .then(json =>{
-            console.log(json.message)
-            console.log("-------")
-            console.log(json.order_id)
-            console.log(json.failed)
             this.props.set_order_id(json.order_id)
             if(json.failed.length===0){
                 this.props.history.push('/order')
@@ -57,10 +53,6 @@ class Cart extends Component{
             }
         }
 
-        // let newdata=[...this.state.data]
-        // newdata[index].cart_q+=1
-        // this.setState({data:newdata})
-
         let newglobalcart = [...this.props.cart]
         if(i===-1){
             const data={
@@ -76,6 +68,7 @@ class Cart extends Component{
         }
         
         this.props.to_cart(newglobalcart)
+        this.calcprice()
     }
 
     removefromCart=(item,price,index)=>{
@@ -88,9 +81,6 @@ class Cart extends Component{
             }
         }
 
-        // let newdata=[...this.state.data]
-        // newdata[index].cart_q-=1
-        // this.setState({data:newdata})
 
         let newglobalcart = [...this.props.cart]
         
@@ -99,14 +89,14 @@ class Cart extends Component{
             newglobalcart.splice(i,1)
         
         this.props.to_cart(newglobalcart)
+        this.calcprice()
     }
 
     gotoCat=()=>{
         this.props.history.push('/')
     }
 
-
-    componentDidMount(){
+    calcprice=()=>{
         const ele=this.props.cart.length
         let price=0
         if(ele!==0){
@@ -114,9 +104,11 @@ class Cart extends Component{
                 price=price+(i.quantity*i.price)
                 return 0;
             })
-            console.log(price)
             this.setState({price:price})
         }
+    }
+    componentDidMount(){
+        this.calcprice()
     }
 
     render(){
@@ -161,9 +153,6 @@ class Cart extends Component{
                                 <p>&#8377;{i.price}</p>
                                 </div>
 
-                                {/* <div className={classes.Quan}>
-                                <p style={{'fontWeight':'bold'}}>Qty:{i.quantity}</p>
-                                </div> */}
                             
                             <div className={classes.Box}>
                                 <div className={classes.Boxchild} onClick={()=>this.removefromCart(i.name,i.price,index)}>
@@ -182,9 +171,7 @@ class Cart extends Component{
                                 (
                                 <div className={classes.Error} style={{borderWidth:3}}>
                                     <p style={{fontSize:15,marginTop:'10px'}}>Max qty available for {this.state.failed[index].name} is {this.state.failed[index].avail_quantity}</p>
-                                    {/* <div onClick={()=>this.removefromCart(i.name,i.price,index)}>
-                                        -
-                                    </div> */}
+                                   
                                  </div>
                                  )
                             }

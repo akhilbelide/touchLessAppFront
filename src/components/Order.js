@@ -20,12 +20,22 @@ class Order extends Component {
   state={
 
   }
+  calcprice=()=>{
+    const ele=this.props.cart.length
+    let price=0
+    if(ele!==0){
+        this.props.cart.map(i =>{
+            price=price+(i.quantity*i.price)
+            return 0;
+        })
+        this.setState({price:price})
+    }
+}
   async componentDidMount() {
-
+    this.calcprice()
   }
  
   render() {
-      console.log(this.props.cart)
     const defaultOptions = {
         loop: true,
         autoplay: true, 
@@ -52,6 +62,9 @@ class Order extends Component {
         width={200}/>
         <div style={{borderRadius:5,display:'flex',flex:1,width:"80%",height:"40px",backgroundColor:"green",alignItems:"center",justifyContent:"center",marginLeft:"10%",marginRight:"10%"}}>
              <p style={{color:"white",fontWeight:"bold"}}>ORDER ID : {this.props.order.id}</p>
+         </div>
+         <div style={{borderRadius:5,display:'flex',flex:1,width:"80%",height:"40px",backgroundColor:"blue",alignItems:"center",justifyContent:"center",marginLeft:"10%",marginRight:"10%"}}>
+             <p style={{color:"white",fontWeight:"bold"}}>TOTAL : {this.state.price}</p>
          </div>
         </div>
 

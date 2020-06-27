@@ -18,7 +18,6 @@ class Categories extends Component{
           return response.json()
         })
         .then(json=>{
-          console.log(json.categories)
           this.setState({categories:json.categories})
         })
         .catch(err =>{
