@@ -17,6 +17,15 @@ class App extends Component {
     data:[]
   }
   async componentDidMount() {
+    if ("geolocation" in navigator) {
+      console.log("Available");
+    } else {
+      console.log("Not Available");
+    }
+    navigator.geolocation.getCurrentPosition(function(position) {
+      console.log("Latitude is :", position.coords.latitude);
+      console.log("Longitude is :", position.coords.longitude);
+    });
     // messaging.requestPermission()
     //   .then(async function() {
     //     const token = await messaging.getToken();
