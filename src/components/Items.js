@@ -207,7 +207,7 @@ class Items extends Component{
                 }
                 {
                     this.state.data.map((i,index) => {
-                        if(this.state.admin===1 || i.quantity!==0){
+                        // if(this.state.admin===1 || i.quantity!==0){
                             return(
                             
                             <div key={index} className={classes.Child}>
@@ -254,7 +254,7 @@ class Items extends Component{
                             </div>
                           
                         )
-                        }
+                        // }
                     })
                 }
             </div>
