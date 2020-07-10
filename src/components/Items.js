@@ -7,7 +7,13 @@ import classes from './Items.css'
 
 
 import Lottie from 'react-lottie';
-import * as animationData from '../animations/loadingburger.json'
+import * as animationData from '../anime/loading.json'
+
+import { FaShoppingBasket } from 'react-icons/fa'
+import { FaArrowLeft } from 'react-icons/fa'
+import { IconContext } from 'react-icons'
+
+
 const defaultOptions = {
     loop: true,
     autoplay: true, 
@@ -68,7 +74,7 @@ class Items extends Component{
         })
     }
 
-    addtoCart=(item,price,index)=>{
+    addtoCart=(item,type,price,index)=>{
         let i=-1
 
         for(let k=0;k<this.props.cart.length;k++){
@@ -88,6 +94,7 @@ class Items extends Component{
                 cat_id:this.state.cat_id,
                 name:item,
                 price:price,
+                type:type,
                 quantity:1
             }
             newglobalcart.push(data)
@@ -99,7 +106,7 @@ class Items extends Component{
         this.props.to_cart(newglobalcart)
     }
 
-    removefromCart=(item,price,index)=>{
+    removefromCart=(item,type,price,index)=>{
         let i=-1
 
         for(let k=0;k<this.props.cart.length;k++){
@@ -185,10 +192,13 @@ class Items extends Component{
             this.setState({showmessage:true})
         })
     }
+    cartCaller=()=>{
+        this.props.history.push('/cart')
+    }
     render(){
         if(this.state.data.length===0){
             return(
-                <div style={{display:"flex",flex:1,justifyContent:"center",alignItems:"center"}}>
+                <div style={{display:"flex",flex:1,justifyContent:"center",alignItems:"center",marginTop:'30%'}}>
                 <Lottie options={defaultOptions}
                 height={200}
                 width={200}/>
@@ -198,7 +208,23 @@ class Items extends Component{
 
 
         return(
-            <div>
+            <div style={{display:'flex',flex:1}}>
+            
+            
+            <header className={classes.FTop}>
+                <div onClick={()=>this.gotoCatHandler()} style={{marginLeft:'7%'}}>
+                    <IconContext.Provider value={{style:{fontSize:'25px'}}}>
+                        <FaArrowLeft/>
+                    </IconContext.Provider>
+                </div>
+                <div onClick={()=>this.cartCaller()} style={{marginLeft:'70%'}}>
+                    <IconContext.Provider value={{style:{fontSize:'25px'}}}>
+                        <FaShoppingBasket/>
+                    </IconContext.Provider>
+                </div>                
+            </header>
+            
+
             <div className={classes.Parent}>
                {this.state.showmessage && 
                 <div style={{width:"100%",aspectRatio:7,backgroundColor:"green",alignItems:"center",justifyContent:"center"}}>
@@ -210,28 +236,29 @@ class Items extends Component{
                         // if(this.state.admin===1 || i.quantity!==0){
                             return(
                             
-                            <div key={index} className={classes.Child}>
-                                
+                            
+
+                            <div key={index} className={classes.Child} style={{backgroundColor:(i.type)===1?'#d21502':(i.type===2)?'#ffd300':'#2a8000'}}>
                                 <div className={classes.Subchild}>
                                 <p style={{'fontWeight':'bold'}}>{i.name}</p>
                                 <p>&#8377;{i.price}</p>
                                 </div>
 
                                 {this.state.admin===0 && i.cart_q===0 && (
-                                    <div className={classes.AddtoCart} onClick={()=>this.addtoCart(i.name,i.price,index)}>
+                                    <div className={classes.AddtoCart} onClick={()=>this.addtoCart(i.name,i.type,i.price,index)}>
                                         Add to cart
                                     </div>
                                 )}
 
                                 {this.state.admin===0 && i.cart_q!==0 && (
                                     <div className={classes.Box}>
-                                        <div className={classes.Boxchild} onClick={()=>this.removefromCart(i.name,i.price,index)}>
+                                        <div className={classes.Boxchild} onClick={()=>this.removefromCart(i.name,i.type,i.price,index)}>
                                             -
                                         </div>
                                         <div className={classes.Boxchild}>
                                             {i.cart_q}
                                         </div>
-                                        <div className={classes.Boxchild} onClick={()=>this.addtoCart(i.name,i.price,index)}>
+                                        <div className={classes.Boxchild} onClick={()=>this.addtoCart(i.name,i.type,i.price,index)}>
                                             +
                                         </div>
                                         
@@ -252,26 +279,13 @@ class Items extends Component{
                                     </div>
                                 )}
                             </div>
-                          
+                            
                         )
                         // }
                     })
                 }
             </div>
-           { this.state.admin===0 && <div className={classes.FParent}>
-                <div onClick={()=>this.gotoCatHandler()}  className={classes.GotoCart}>
-                    
-                    Categories
-    
-                </div>
-                <div onClick={()=>this.gotoCartHandler()}  className={classes.GotoCart}>
-                    
-                    CART
-    
-                </div>
-                
-
-            </div>}
+           
             { this.state.admin===1 && <div className={classes.FParent}>
 
                 <div onClick={()=>this.updateHandler()}  className={classes.GotoCart}>

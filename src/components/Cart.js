@@ -6,7 +6,7 @@ import classes from './Cart.css'
 import {withRouter} from 'react-router-dom'
 import {hosturl} from '../config'
 import Lottie from 'react-lottie';
-import * as animationData from '../animations/loadingburger.json'
+import * as animationData from '../anime/empty.json'
 const defaultOptions = {
     loop: true,
     autoplay: true, 
@@ -146,8 +146,9 @@ class Cart extends Component{
                 {
                     this.props.cart.map((i,index) => {
                         return(
-                            <div key={index} style={{flex:1}}>
-                            <div className={classes.Child} style={this.state.failed.length !==0 && this.state.failed[index].error===0?{backgroundColor:'#26D701'}:{backgroundColor:'#d21502'}}> 
+                           
+                            <div key={index}  style={{flex:1}}>
+                            <div className={classes.Child} style={{backgroundColor:(i.type)===1?'#d21502':(i.type===2)?'#ffd300':'#2a8000'}}> 
                                 <div className={classes.Subchild}>
                                 <p style={{'fontWeight':'bold'}}>{i.name}</p>
                                 <p>&#8377;{i.price}</p>
