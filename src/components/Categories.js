@@ -28,6 +28,7 @@ class Categories extends Component{
         data:[]
     }
     componentDidMount(){
+        
         fetch(hosturl+'/categories/all/')
         .then(response=>{
           return response.json()
