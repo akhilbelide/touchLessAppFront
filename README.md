@@ -81,6 +81,7 @@ You can, however, create more top-level directories.<br>
 They will not be included in the production build so you can use them for things like documentation.
 
 In src/config.js `hosturl` holds the URL of the backend server.
+If backend is hosted in a local machine, update `hosturl` to http://localhost:8090 in src/config.js 
 
 ## Available Scripts
 
